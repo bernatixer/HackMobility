@@ -37,12 +37,14 @@ function loadPoints (json){
 	var color = '#ff0000'
 	if (percent != 0) 
 		color = (percent >= 50 ? "#008000" : "#FFA500");
-	
-		L.circle([json[i].lat, json[i].lon], 25, {
+		
+		var circle = L.circle([json[i].lat, json[i].lon], 25, {
+		title: json[i].address,
 		color: color,
 		fillColor: color,
 		fillOpacity: 0.75
 		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address);
+		markersLayer.addLayer(circle);
 	}
 
 }
