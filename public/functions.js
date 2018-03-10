@@ -52,13 +52,12 @@ function loadPoints (json){
 			color: color,
 			fillColor: color,
 			fillOpacity: red
-			}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address + " </br> <button class='btn btn-info' id='"+i+"' onclick='makePath("+i+");'>Go</button>");
+			}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address + " </br> <button class='btn btn-info' id='"+i+"' onclick='makePath("+ lat + ","+ lon + ");'>Go</button>");
 			markersLayer.addLayer(circle);
 	}
 
 }
 
 
-function makePath(id) {
-	console.log("id_del_clicat: " + id);
+function makePath(lat,lon) {
 }
