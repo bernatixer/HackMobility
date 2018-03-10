@@ -5,10 +5,10 @@ var xhr = new XMLHttpRequest({mozSystem: true});
 (function ($) {
 	getJSON(url, function(data) {
   	console.log(data)
-	}
+	})
 
     $(document).ready(getJSON); 
-)})(jQuery);
+})(jQuery);
 
 
 
