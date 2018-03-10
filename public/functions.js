@@ -80,5 +80,5 @@ function possiblePath(lat, lon, percent) {
 }
 
 function nearestStation(lat,lon) {
-	return "eta";
+	console.log("incoming");
 }
