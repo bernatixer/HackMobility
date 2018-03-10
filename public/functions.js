@@ -37,7 +37,7 @@ function loadPoints (json){
 	
 	var color = '#ff0000'
 	if (percent != 0) 
-		color = (percent >= 30 ? "#008000" : "#FFA500");
+		color = (percent >= 50 ? "#008000" : "#FFA500");
 	
 		L.circle([json[i].lat, json[i].lon], 25, {
 		color: color,
