@@ -1,4 +1,4 @@
-var url = "https://cors.io/?http://www.bicing.cat/availability_map/getJsonObject"
+var url = "https://cors.io/?http://www.bicing.cat/availability_map/getJsonObject";
 var xhr = new XMLHttpRequest({mozSystem: true});
 
 $.getJSON(url, function(data) {
