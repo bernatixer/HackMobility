@@ -1,15 +1,10 @@
-var url = "https://cors.io/?http://www.bicing.cat/availability_map/getJsonObject";
+var url = "https://cors.io/?http://www.bicing.cat/availability_map/getJsonObject"
 var xhr = new XMLHttpRequest({mozSystem: true});
 
-<<<<<<< HEAD
-
-(function ($) {
-	getJSON(url, function(data) {
-  	console.log(data)
-	})
-
-    $(document).ready(getJSON); 
-})(jQuery);
+$.getJSON(url, function(data) {
+    console.log(data)
+    loadPoints(data);
+});
 
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
