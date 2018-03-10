@@ -44,3 +44,18 @@ router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
 getLocationLeaflet();
 
 var popup = L.popup();
+
+
+var markersLayer = new L.LayerGroup();	//layer contain searched elements
+
+mymap.addLayer(markersLayer);
+
+var controlSearch = new L.Control.Search({
+    position:'topleft',		
+    layer: markersLayer,
+    initial: false,
+    zoom: 12,
+    marker: false
+});
+
+mymap.addControl( controlSearch );
