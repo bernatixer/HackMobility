@@ -1,17 +1,10 @@
 var url = "https://cors.io/?http://www.bicing.cat/availability_map/getJsonObject"
 var xhr = new XMLHttpRequest({mozSystem: true});
 
-
-(function ($) {
-	getJSON(url, function(data) {
-  	console.log(data)
-	}
-
-    $(document).ready(getJSON); 
-)})(jQuery);
-
-
-
+$.getJSON(url, function(data) {
+    console.log(data)
+    loadPoints(data);
+});
 
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
@@ -33,15 +26,15 @@ var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
 
 function loadPoints (json){
-	var obj = JSON.parse(json)
-	for (var point in obj){
+	//var obj = JSON.parse(json)
+	for (var point in json){
 
 	
 	/*var color = '#ff0000'
 	var percent = (point.bikes/(point.bikes+point.slots))*100
 	if (percent != 0) {
 		color = (percent >= 66 ? "#008000" : "#FFA500");*/
-		console.log(point.lat + " " + point.lon);
+		console.log(point['lat'] + " " + point['lon']);
 	}
 
 	
@@ -51,5 +44,7 @@ function loadPoints (json){
 		fillColor: '#f03',
 		fillOpacity: 0.5
 		}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
+	}*/
+} circle. <b>hoalsla</b>");
 	}*/
 }
