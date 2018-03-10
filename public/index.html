@@ -49,7 +49,11 @@
         L.latLng(41.391075, 2.180223),
         L.latLng(41.385331, 2.128737)
     ],
-    router: L.routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494")
+    router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
+        urlParameters: {
+            vehicle: 'foot'
+        }
+    })
     }).addTo(mymap);
 
 	var popup = L.popup();
