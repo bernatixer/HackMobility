@@ -57,19 +57,23 @@ var controlSearch = new L.Control.Search({
     zoom: 16,
     marker: false,
     moveToLocation: function(latlng, title, map) {
-        L.Routing.control({
-            waypoints: [
-                L.latLng(currLocation),
-                L.latLng(latlng.lat, latlng.lng)
-            ],
-            router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
-                urlParameters: {
-                    vehicle: 'bike'
-                }
-            })
-        }).addTo(mymap);
+        makePath(latlng.lat, latlng.lng);
         map.setView(latlng, 16);
     }
 });
 
 mymap.addControl(controlSearch);
+
+function makePath(lat, lng) {
+    L.Routing.control({
+        waypoints: [
+            L.latLng(currLocation),
+            L.latLng(lat, lng)
+        ],
+        router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
+            urlParameters: {
+                vehicle: 'bike'
+            }
+        })
+    }).addTo(mymap);
+}
