@@ -59,6 +59,4 @@ function loadPoints (json){
 		fillOpacity: 0.5
 		}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
 	}*/
-} circle. <b>hoalsla</b>");
-	}*/
 }
