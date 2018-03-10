@@ -32,37 +32,12 @@
 		id: 'mapbox.streets'
 	}).addTo(mymap);
 
-	L.circle([41.391075, 2.180223], 50, {
-		color: 'red',
-		fillColor: '#f03',
-		fillOpacity: 0.5
-	}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
-
-	L.circle([41.385331, 2.128737], 50, {
-		color: 'red',
-		fillColor: '#f03',
-		fillOpacity: 0.5
-	}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
-
-    L.Routing.control({
-    waypoints: [
-        L.latLng(41.391075, 2.180223),
-        L.latLng(41.385331, 2.128737)
-    ],
-    router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
-        urlParameters: {
-            vehicle: 'foot'
-        }
-    })
-    }).addTo(mymap);
-
-	var popup = L.popup();
-
 </script>
 
  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
- <script src="./functions.js"></script>
+ <script src="functions.js"></script>
+ <script src="routes.js"></script>
 </body>
 </html>
