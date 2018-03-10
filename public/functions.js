@@ -29,11 +29,11 @@ function loadPoints (json){
 	console.log("he entrat a loadPoints");
 	//var obj = JSON.parse(json)
 	for (var i = 0; i < json.length; ++i){
-		var bikes 	= json[i].bikes
-		var	slots 	= json[i].slots
-		var	summ  	= bikes + slots
-		var	percent = (bikes/summ)*100 
-		console.log("id: " + i-1 + ", bikes: " + bikes ", slots: " + slots + ", summ: " + summ + ", percent: " + percent);
+	var bikes 	= json[i].bikes
+	var	slots 	= json[i].slots
+	var	summ  	= parseInt(bikes) + parseInt(slots)
+	var	percent = (parseInt(bikes)/parseInt(summ))*100
+	console.log("id: " + i-1 + ", bikes: " + bikes + ", slots: " + slots + ", summ: " + summ + ", percent: " + percent);
 	
 	var color = '#ff0000'
 	if (percent != 0) 
@@ -43,7 +43,7 @@ function loadPoints (json){
 		color: color,
 		fillColor: color,
 		fillOpacity: 0.75
-		}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
+		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" + "Bike Slots: " + json[i].slots);
 	}
 
 }

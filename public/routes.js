@@ -1,8 +1,8 @@
 function onLocationFound(e) {
     var radius = e.accuracy / 2;
     var location = e.latlng
-    L.marker(location).addTo(map)
-    L.circle(location, radius).addTo(map);
+    L.marker(location).addTo(mymap)
+    L.circle(location, radius).addTo(mymap);
  }
 
  function onLocationError(e) {
