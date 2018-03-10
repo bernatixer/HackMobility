@@ -10,10 +10,10 @@ function onLocationFound(e) {
  }
 
  function getLocationLeaflet() {
-    map.on('locationfound', onLocationFound);
-    map.on('locationerror', onLocationError);
+    mymap.on('locationfound', onLocationFound);
+    mymap.on('locationerror', onLocationError);
 
-    map.locate({setView: true, maxZoom: 16});
+    mymap.locate({setView: true, maxZoom: 16});
  }
 
 
@@ -40,5 +40,7 @@ router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
     }
 })
 }).addTo(mymap);
+
+getLocationLeaflet();
 
 var popup = L.popup();
