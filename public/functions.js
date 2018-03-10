@@ -1,3 +1,23 @@
+var request = require('request');
+
+var url = "https://www.bicing.cat/availability_map/getJsonObject"
+
+request({
+    url: url,
+    json: true
+}, function (error, response, body) {
+
+    if (!error && response.statusCode === 200) {
+        console.log(body) // Print the json response
+        var parser = JSON.parse(body);
+        loadPoints(parser);
+
+    }
+
+});
+
+
+
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -24,6 +44,7 @@ var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 	}
 
 	mymap.on('click', onMapClick);*/
+
 
 function loadPoints (json){
 	for (var point in json){
