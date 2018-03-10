@@ -26,23 +26,26 @@ var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
 
 function loadPoints (json){
+	console.log("he entrat a loadPoints");
 	//var obj = JSON.parse(json)
-	for (var point in json){
+	for (var i = 0; i < json.length; ++i){
 
 	
-	/*var color = '#ff0000'
-	var percent = (point.bikes/(point.bikes+point.slots))*100
+	var color = '#ff0000'
+	var percent = (json[i].bikes/(json[i].bikes+json[i].slots))*1000;
 	if (percent != 0) {
-		color = (percent >= 66 ? "#008000" : "#FFA500");*/
-		console.log(point['lat'] + " " + point['lon']);
+		color = (percent >= 30 ? "#008000" : "#FFA500");
+		console.log(percent);
+
+	}
+		L.circle([json[i].lat, json[i].lon], 10, {
+		color: color,
+		fillColor: color,
+		fillOpacity: 0.75
+		}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
 	}
 
 	
 	
-	/*L.circle([point.lat, point.lon], 50, {
-		color: 'red',
-		fillColor: '#f03',
-		fillOpacity: 0.5
-		}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
-	}*/
+
 }
