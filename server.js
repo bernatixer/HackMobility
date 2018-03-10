@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const fs = require('fs')
-const request = require('request')
+// const request = require('request')
 
 /*setTimeout(function() {
     request('https://www.bicing.cat/availability_map/getJsonObject', function (error, response, body) {
