@@ -1,5 +1,12 @@
 var currLocation;
-var route;
+var route = L.Routing.control({
+    waypoints: [],
+    router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
+        urlParameters: {
+            vehicle: 'bike'
+        }
+    })
+}).addTo(mymap);
 // route.show();
 // route.hide();
 
@@ -68,15 +75,10 @@ var controlSearch = new L.Control.Search({
 mymap.addControl(controlSearch);
 
 function makePath(lat, lng) {
-    route = L.Routing.control({
-        waypoints: [
-            L.latLng(currLocation),
-            L.latLng(lat, lng)
-        ],
-        router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
-            urlParameters: {
-                vehicle: 'bike'
-            }
-        })
-    }).addTo(mymap);
+    route.spliceWaypoints(0, 2);
+    route.setWaypoints([
+        currLocation,
+        L.latLng(lat, lng)
+    ]);
+
 }
