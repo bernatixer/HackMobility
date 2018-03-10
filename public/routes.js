@@ -1,3 +1,4 @@
+var bikeData = [];
 var currLocation;
 var route = L.Routing.control({
     waypoints: [],

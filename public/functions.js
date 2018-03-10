@@ -13,26 +13,15 @@ $.getJSON(url, function(data) {
 
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
-	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-		maxZoom: 18,
-		id: 'mapbox.streets'
-	}).addTo(mymap);
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+	maxZoom: 18,
+	id: 'mapbox.streets'
+}).addTo(mymap);
 
-	var popup = L.popup();
-
-	/*function onMapClick(e) {
-		popup
-			.setLatLng(e.latlng)
-			.setContent("You clicked the map at " + e.latlng.toString())
-			.openOn(mymap);
-	}
-
-	mymap.on('click', onMapClick);*/
-
+var popup = L.popup();
 
 function loadPoints (json){
-	//var obj = JSON.parse(json)
-	for (var i = 0; i < json.length; ++i){
+	for (var i = 0; i < json.length; ++i) {
 		var bikes 	= json[i].bikes,
 			slots 	= json[i].slots,
 		 	summ  	= parseInt(bikes) + parseInt(slots),
@@ -41,10 +30,14 @@ function loadPoints (json){
 			red 	= 1,
 			address	= json[i].address,
 			lat 	= json[i].lat,
-			lon 	= json[i].lon;	
-		if (percent != 0){
-			color = (percent > 50 ?" rgb(0,255,0)" : "rgb(255,"+ Math.floor(230*(percent/100)) +",0)")
-			red = 0.7
+			lon 	= json[i].lon,
+			id 	    = json[i].id;
+
+		bikeData[id] = {percent: percent, lat: lat, lon: lon, address: address, nearbyStations: json[i].nearbyStations};
+
+		if (percent != 0) {
+			color = (percent > 50 ?" rgb(0,255,0)" : "rgb(255,"+ Math.floor(230*(percent/100)) +",0)");
+			red = 0.7;
 		}
 
 		var circle = L.circle([lat, lon], 25, {
@@ -52,8 +45,17 @@ function loadPoints (json){
 			color: color,
 			fillColor: color,
 			fillOpacity: red
-			}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address + " </br></br> <button class='btn btn-info btn-sm' id='"+i+"' onclick='makePath("+ lat + ","+ lon + ");'>Go</button>");
-			markersLayer.addLayer(circle);
+		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address + " </br></br> <button class='btn btn-info btn-sm' id='"+i+"' onclick='possiblePath(" + lat + "," + lon + ", " + percent + ");'>Go</button>");
+		
+		markersLayer.addLayer(circle);
 	}
 
+}
+
+function possiblePath(lat, lon, percent) {
+	if (percent === 0) {
+		//
+	} else {
+		makePath(lat, lon);
+	}
 }
