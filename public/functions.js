@@ -25,13 +25,16 @@ var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
 	mymap.on('click', onMapClick);*/
 
-function loadPoints (var json){
+function loadPoints (json){
 	for (var point in json){
+	var color = '#ff0000'
+	var percent = (point.bikes/(point.bikes+point.slots))*100
+	if (percent != 0) {
+		color = (percent >= 66 ? "#008000" : "#FFA500");
+	}
 
-	var color
 
-	if ((point.bikes/(point.bikes+point.slots))*100)
-
+	
 	L.circle([point.lat, point.lon], 50, {
 		color: 'red',
 		fillColor: '#f03',
