@@ -1,4 +1,7 @@
 var currLocation;
+var route;
+// route.show();
+// route.hide();
 
 function onLocationFound(e) {
     var radius = e.accuracy / 2;
@@ -65,7 +68,7 @@ var controlSearch = new L.Control.Search({
 mymap.addControl(controlSearch);
 
 function makePath(lat, lng) {
-    L.Routing.control({
+    route = L.Routing.control({
         waypoints: [
             L.latLng(currLocation),
             L.latLng(lat, lng)
