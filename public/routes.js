@@ -1,8 +1,10 @@
+var currLocation;
+
 function onLocationFound(e) {
     var radius = e.accuracy / 2;
-    var location = e.latlng
-    L.marker(location).addTo(mymap)
-    L.circle(location, radius).addTo(mymap);
+    currLocation = e.latlng
+    L.marker(currLocation).addTo(mymap)
+    L.circle(currLocation, radius).addTo(mymap);
  }
 
  function onLocationError(e) {
@@ -16,8 +18,7 @@ function onLocationFound(e) {
     mymap.locate({setView: true, maxZoom: 16});
  }
 
-
- L.circle([41.391075, 2.180223], 50, {
+/*L.circle([41.391075, 2.180223], 50, {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5
@@ -39,12 +40,11 @@ router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
         vehicle: 'bike'
     }
 })
-}).addTo(mymap);
+}).addTo(mymap);*/
 
 getLocationLeaflet();
 
 var popup = L.popup();
-
 
 var markersLayer = new L.LayerGroup();	//layer contain searched elements
 
@@ -54,8 +54,22 @@ var controlSearch = new L.Control.Search({
     position:'topleft',		
     layer: markersLayer,
     initial: false,
-    zoom: 18,
-    marker: false
+    zoom: 16,
+    marker: false,
+    moveToLocation: function(latlng, title, map) {
+        L.Routing.control({
+            waypoints: [
+                L.latLng(currLocation),
+                L.latLng(latlng.lat, latlng.lng)
+            ],
+            router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
+                urlParameters: {
+                    vehicle: 'bike'
+                }
+            })
+        }).addTo(mymap);
+        map.setView(latlng, 16);
+    }
 });
 
-mymap.addControl( controlSearch );
+mymap.addControl(controlSearch);
