@@ -33,25 +33,32 @@ var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 function loadPoints (json){
 	//var obj = JSON.parse(json)
 	for (var i = 0; i < json.length; ++i){
-	var bikes 	= json[i].bikes
-	var	slots 	= json[i].slots
-	var	summ  	= parseInt(bikes) + parseInt(slots)
-	var	percent = (parseInt(bikes)/parseInt(summ))*100
-	
-	var color = "rgb(0,0,0)";
-	var red = 1;
-	if (percent != 0){
-		color = (percent > 50 ?" rgb(0,255,0)" : "rgb(255,"+ Math.floor(230*(percent/100)) +",0)")
-		red = 0.7
+		var bikes 	= json[i].bikes,
+			slots 	= json[i].slots,
+		 	summ  	= parseInt(bikes) + parseInt(slots),
+			percent = (parseInt(bikes)/parseInt(summ))*100,
+			color 	= "rgb(0,0,0)",
+			red 	= 1,
+			address	= json[i].address,
+			lat 	= json[i].lat,
+			lon 	= json[i].lon;	
+		if (percent != 0){
+			color = (percent > 50 ?" rgb(0,255,0)" : "rgb(255,"+ Math.floor(230*(percent/100)) +",0)")
+			red = 0.7
+		}
+
+		var circle = L.circle([lat, lon], 25, {
+			title: json[i].address,
+			color: color,
+			fillColor: color,
+			fillOpacity: red
+			}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address + " </br> <button class='btn btn-info' id='"+i+"' onclick='makePath("+i+");'>Go</button>");
+			markersLayer.addLayer(circle);
 	}
 
-		var circle = L.circle([json[i].lat, json[i].lon], 25, {
-		title: json[i].address,
-		color: color,
-		fillColor: color,
-		fillOpacity: red
-		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address);
-		markersLayer.addLayer(circle);
-	}
+}
 
+
+function makePath(id) {
+	console.log("id_del_clicat: " + id);
 }
