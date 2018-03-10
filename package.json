@@ -4,7 +4,8 @@
   "description": "Bicing data visualization and route finder using Carto and Node.js",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "toastr": "^2.1.4"
   },
   "devDependencies": {},
   "scripts": {
