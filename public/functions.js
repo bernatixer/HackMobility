@@ -34,10 +34,10 @@ function loadPoints (json){
 	var	summ  	= parseInt(bikes) + parseInt(slots)
 	var	percent = (parseInt(bikes)/parseInt(summ))*100
 	
-	var color = '#ff0000'
-	if (percent != 0) 
-		color = (percent >= 50 ? "#008000" : "#FFA500");
-		
+	var color = "rgb(255,0,0)";
+	if (percent != 0)
+		color = (percent > 50 ?" rgb(0,128,0)" : "rgb(255,"+ Math.floor(230*(percent/100)) +",0)")
+
 		var circle = L.circle([json[i].lat, json[i].lon], 25, {
 		title: json[i].address,
 		color: color,
