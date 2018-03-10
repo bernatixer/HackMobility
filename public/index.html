@@ -22,12 +22,33 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="http://labs.easyblog.it/maps/leaflet-search/src/leaflet-search.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 	</head>
 	<body>
 
 		<div id="mapid" style="width: 100vw; height: 100vh;"></div>
+
+		<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">What do you want to do?</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+					<button type="button" class="btn btn-primary btn-lg btn-block" onclick="findBike();">I want to find a bike</button>
+					<button type="button" class="btn btn-secondary btn-lg btn-block" onclick="parkBike();">I want to park my bike</button>
+					<button type="button" class="btn btn-success btn-lg btn-block" onclick="findRoute();">I want to find a route</button>
+				</div>
+			</div>
+			</div>
+		</div>
+
 		<script>
+			$('#questionModal').modal('toggle');
 
 			var mymap = L.map('mapid').setView([41.391075, 2.18022], 13);
 
@@ -39,7 +60,6 @@
 		</script>
 
 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 		 <script src="routes.js"></script>
 		 <script src="functions.js"></script>
 	</body>

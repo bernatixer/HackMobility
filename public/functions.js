@@ -51,30 +51,3 @@ function loadPoints (json){
 	}
 
 }
-
-function possiblePath(lat, lon, percent) {
-	if (percent === 0) {
-
-		toastr.options = {
-		  "closeButton": false,
-		  "debug": false,
-		  "newestOnTop": false,
-		  "progressBar": false,
-		  "positionClass": "toast-top-right",
-		  "preventDuplicates": false,
-		  "onclick": null,
-		  "showDuration": "300",
-		  "hideDuration": "1000",
-		  "timeOut": "5000",
-		  "extendedTimeOut": "1000",
-		  "showEasing": "swing",
-		  "hideEasing": "linear",
-		  "showMethod": "fadeIn",
-		  "hideMethod": "fadeOut"
-		}
-		toastr.warning("No bikes left in this station </br> <button class='btn btn-warning btn-sm' onclick='makePath("+lat+","+lon+");'>Go</button> <button class='btn btn-warning btn-sm'  onclick='nearestStation("+ lat + "," + lon + ")'>Redirect</button>", "Care!")
-
-	} else {
-		makePath(lat, lon);
-	}
-}

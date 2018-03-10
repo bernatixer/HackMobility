@@ -1,5 +1,6 @@
 var bikeData = [];
 var currLocation;
+var nowStation;
 var route = L.Routing.control({
     waypoints: [],
     router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
@@ -8,8 +9,42 @@ var route = L.Routing.control({
         }
     })
 }).addTo(mymap);
-// route.show();
-// route.hide();
+
+function possiblePath(lat, lon, percent) {
+	if (percent === 0) {
+
+		toastr.options = {
+		  "closeButton": false,
+		  "debug": false,
+		  "newestOnTop": false,
+		  "progressBar": false,
+		  "positionClass": "toast-top-right",
+		  "preventDuplicates": false,
+		  "onclick": null,
+		  "showDuration": "300",    
+		  "hideDuration": "1000",
+		  "timeOut": "5000",
+		  "extendedTimeOut": "1000",
+		  "showEasing": "swing",
+		  "hideEasing": "linear",
+		  "showMethod": "fadeIn",
+		  "hideMethod": "fadeOut"
+		}
+		toastr.warning("No bikes left in this station </br> <button class='btn btn-warning btn-sm' onclick='makePath("+lat+","+lon+");'>Go</button> <button class='btn btn-warning btn-sm'  onclick='nearestStation("+ lat + "," + lon + ")'>Redirect</button>", "Care!")
+
+	} else {
+		makePath(lat, lon);
+	}
+}
+
+function findPercent(title) {
+    var station;
+    for (station in bikeData) {
+        var bikeStation = bikeData[station];
+        if (bikeStation.address == title) return bikeStation.percent;
+    }
+    return 100;
+}
 
 function onLocationFound(e) {
     var radius = e.accuracy / 2;
@@ -29,30 +64,6 @@ function onLocationFound(e) {
     mymap.locate({setView: true, maxZoom: 16});
  }
 
-/*L.circle([41.391075, 2.180223], 50, {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
-
-L.circle([41.385331, 2.128737], 50, {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5
-}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
-
-L.Routing.control({
-waypoints: [
-    L.latLng(41.391075, 2.180223),
-    L.latLng(41.385331, 2.128737)
-],
-router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
-    urlParameters: {
-        vehicle: 'bike'
-    }
-})
-}).addTo(mymap);*/
-
 getLocationLeaflet();
 
 var popup = L.popup();
@@ -62,13 +73,14 @@ var markersLayer = new L.LayerGroup();	//layer contain searched elements
 mymap.addLayer(markersLayer);
 
 var controlSearch = new L.Control.Search({
-    position:'topleft',		
+    position:'topleft',
     layer: markersLayer,
     initial: false,
     zoom: 16,
     marker: false,
     moveToLocation: function(latlng, title, map) {
-        makePath(latlng.lat, latlng.lng);
+        console.log(title);
+        possiblePath(latlng.lat, latlng.lng, findPercent(title));
         map.setView(latlng, 16);
     }
 });
@@ -76,22 +88,37 @@ var controlSearch = new L.Control.Search({
 mymap.addControl(controlSearch);
 
 function distance(lat, lng) {
-    var a = lat-currLocation.lat;
-    var b = lng-currLocation.lng;
-    a = a*a;
-    b = b*b;
-    var c = a+b;
+    var a = lat-nowStation.lat;
+    var b = lng-nowStation.lng;
+    var c = a*a+b*b;
     return Math.sqrt(c);
+}
+
+function findRoute() {
+    // TO-DO: POSAR UN SEARCH PER BUSCAR EL LLOC ON ANAR
+    $('#questionModal').modal('toggle');
+}
+
+function findBike() {
+    // TO-DO: MIRAR SI N'HI HA UN Q ESTA BUIT I PORTAR-LO AL QUE NO HO ESTA
+    $('#questionModal').modal('toggle');
+}
+
+function parkBike() {
+    // BUSCAR UN AMB SLOTS LLIURES I PORTARLO ALLA, PINTAR-HO TOT DIFERENT
+    $('#questionModal').modal('toggle');
 }
 
 function nearestStation(lat, lng) {
     var bestStation = bikeData[1];
     var station;
-
+    nowStation = {lat: lat, lng: lng};
     for (station in bikeData) {
         var bikeStation = bikeData[station];
-        if (distance(bikeStation.lat, bikeStation.lng) < distance(bestStation.lat, bestStation.lng)) {
-            bestStation = bikeStation;
+        if (bikeStation.percent != 0 && bikeStation.lat != nowStation.lat && bikeStation.lng != nowStation.lng) {
+            if (distance(bikeStation.lat, bikeStation.lng) < distance(bestStation.lat, bestStation.lng)) {
+                bestStation = bikeStation;
+            }
         }
     }
     makePath(bestStation.lat, bestStation.lng)
