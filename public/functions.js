@@ -33,7 +33,7 @@ function loadPoints (json){
 			lon 	= json[i].lon,
 			id 	    = json[i].id;
 
-		bikeData[id] = {percent: percent, lat: lat, lng: lng, address: address, nearbyStations: json[i].nearbyStations};
+		bikeData[parseInt(id)] = {percent: percent, lat: lat, lng: lon, address: address, nearbyStations: json[i].nearbyStations};
 
 		if (percent != 0) {
 			color = (percent > 50 ?" rgb(0,255,0)" : "rgb(255,"+ Math.floor(230*(percent/100)) +",0)");

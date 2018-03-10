@@ -81,16 +81,20 @@ function distance(lat, lng) {
     a = a*a;
     b = b*b;
     var c = a+b;
-    return sqrt(c);
+    return Math.sqrt(c);
 }
 
 function nearestStation(lat, lng) {
     var bestStation = bikeData[1];
-    for (var station in bikeData) {
-        if (distance(station.lat, station.lng) < distance(bestStation.lat, bestStation.lng)) {
-            bestStation = station;
+    var station;
+
+    for (station in bikeData) {
+        var bikeStation = bikeData[station];
+        if (distance(bikeStation.lat, bikeStation.lng) < distance(bestStation.lat, bestStation.lng)) {
+            bestStation = bikeStation;
         }
     }
+    makePath(bestStation.lat, bestStation.lng)
 }
 
 function makePath(lat, lng) {
