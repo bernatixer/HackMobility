@@ -75,6 +75,24 @@ var controlSearch = new L.Control.Search({
 
 mymap.addControl(controlSearch);
 
+function distance(lat, lng) {
+    var a = lat-currLocation.lat;
+    var b = lng-currLocation.lng;
+    a = a*a;
+    b = b*b;
+    var c = a+b;
+    return sqrt(c);
+}
+
+function nearestStation(lat, lng) {
+    var bestStation = bikeData[1];
+    for (var station in bikeData) {
+        if (distance(station.lat, station.lng) < distance(bestStation.lat, bestStation.lng)) {
+            bestStation = station;
+        }
+    }
+}
+
 function makePath(lat, lng) {
     route.spliceWaypoints(0, 2);
     route.setWaypoints([
