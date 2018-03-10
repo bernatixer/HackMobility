@@ -1,10 +1,16 @@
 var url = "https://cors.io/?http://www.bicing.cat/availability_map/getJsonObject";
 var xhr = new XMLHttpRequest({mozSystem: true});
 
-$.getJSON(url, function(data) {
-    console.log(data)
-    loadPoints(data);
-});
+
+(function ($) {
+	getJSON(url, function(data) {
+  	console.log(data)
+	}
+
+    $(document).ready(getJSON); 
+)})(jQuery);
+
+
 
 
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
@@ -27,7 +33,10 @@ var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
 
 function loadPoints (json){
-	for (var point in json){
+	var obj = JSON.parse(json)
+	for (var point in obj){
+
+	
 	/*var color = '#ff0000'
 	var percent = (point.bikes/(point.bikes+point.slots))*100
 	if (percent != 0) {
