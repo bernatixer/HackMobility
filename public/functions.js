@@ -45,7 +45,7 @@ function loadPoints (json){
 			color: color,
 			fillColor: color,
 			fillOpacity: red
-		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address + " </br></br> <button class='btn btn-info btn-sm' id='"+i+"' onclick='possiblePath(" + lat + "," + lon + ", " + percent + ");'>Go</button>");
+		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address + " </br></br> <button class='btn btn-info btn-sm' id='"+i+"' onclick='possiblePath(" + lat + "," + lon + ", " + percent + ", " +  ");'>Go</button>");
 		
 		markersLayer.addLayer(circle);
 	}
@@ -72,9 +72,13 @@ function possiblePath(lat, lon, percent) {
 		  "showMethod": "fadeIn",
 		  "hideMethod": "fadeOut"
 		}
-		toastr.warning("No bikes left in this station </br> <button class='btn btn-warning btn-sm' onclick='makePath("+lat+","+lon+");'>Go</button> <button class='btn btn-warning btn-sm'>Redirect</button>", "Care!")
+		toastr.warning("No bikes left in this station </br> <button class='btn btn-warning btn-sm' onclick='makePath("+lat+","+lon+");'>Go</button> <button class='btn btn-warning btn-sm'  onclick='nearestStation("+ lat + "," + lon")'>Redirect</button>", "Care!")
 
 	} else {
 		makePath(lat, lon);
 	}
+}
+
+function nearestStation(lat,lon) {
+	
 }
