@@ -72,7 +72,7 @@ function possiblePath(lat, lon, percent) {
 		  "showMethod": "fadeIn",
 		  "hideMethod": "fadeOut"
 		}
-		toastr.warning("No bikes left in this station </br> <button class='btn btn-warning btn-sm' onclick='makePath("+lat+","+lon+");'>Go</button> <button class='btn btn-warning btn-sm'  onclick='nearestStation("+ lat + "," + lon")'>Redirect</button>", "Care!")
+		toastr.warning("No bikes left in this station </br> <button class='btn btn-warning btn-sm' onclick='makePath("+lat+","+lon+");'>Go</button> <button class='btn btn-warning btn-sm'  onclick='nearestStation("+ lat + "," + lon + ")'>Redirect</button>", "Care!")
 
 	} else {
 		makePath(lat, lon);
@@ -80,5 +80,5 @@ function possiblePath(lat, lon, percent) {
 }
 
 function nearestStation(lat,lon) {
-	
+	return "eta";
 }
