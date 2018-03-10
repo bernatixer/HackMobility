@@ -1,4 +1,4 @@
-var url = "https://cors.io/?http://www.bicing.cat/availability_map/getJsonObject"
+var url = "http://www.bicing.cat/availability_map/getJsonObject"
 var xhr = new XMLHttpRequest({mozSystem: true});
 
 $.getJSON(url, function(data) {
@@ -34,15 +34,18 @@ function loadPoints (json){
 	var	summ  	= parseInt(bikes) + parseInt(slots)
 	var	percent = (parseInt(bikes)/parseInt(summ))*100
 	
-	var color = "rgb(255,0,0)";
-	if (percent != 0)
-		color = (percent > 50 ?" rgb(0,128,0)" : "rgb(255,"+ Math.floor(230*(percent/100)) +",0)")
+	var color = "rgb(0,0,0)";
+	var red = 1;
+	if (percent != 0){
+		color = (percent > 50 ?" rgb(0,255,0)" : "rgb(255,"+ Math.floor(230*(percent/100)) +",0)")
+		red = 0.7
+	}
 
 		var circle = L.circle([json[i].lat, json[i].lon], 25, {
 		title: json[i].address,
 		color: color,
 		fillColor: color,
-		fillOpacity: 0.75
+		fillOpacity: red
 		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address);
 		markersLayer.addLayer(circle);
 	}
