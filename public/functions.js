@@ -1,9 +1,14 @@
-var url = "http://www.bicing.cat/availability_map/getJsonObject"
-var xhr = new XMLHttpRequest({mozSystem: true});
+var url = "getJsonObject"
 
+/*setTimeout(function() {
+	$.getJSON(url, function(data) {
+		loadPoints(data);
+		console.log("Punts actualitzats");
+	});
+}, 60000);*/
 $.getJSON(url, function(data) {
-    console.log(data)
-    loadPoints(data);
+	loadPoints(data);
+	console.log("Punts actualitzats");
 });
 
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
@@ -24,8 +29,8 @@ var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
 	mymap.on('click', onMapClick);*/
 
+
 function loadPoints (json){
-	console.log("he entrat a loadPoints");
 	//var obj = JSON.parse(json)
 	for (var i = 0; i < json.length; ++i){
 	var bikes 	= json[i].bikes

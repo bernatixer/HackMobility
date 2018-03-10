@@ -54,7 +54,7 @@ var controlSearch = new L.Control.Search({
     position:'topleft',		
     layer: markersLayer,
     initial: false,
-    zoom: 12,
+    zoom: 18,
     marker: false
 });
 
