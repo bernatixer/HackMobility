@@ -1,21 +1,9 @@
-var request = require('request');
-
 var url = "https://www.bicing.cat/availability_map/getJsonObject"
+var xhr = new XMLHttpRequest({mozSystem: true});
 
-request({
-    url: url,
-    json: true
-}, function (error, response, body) {
-
-    if (!error && response.statusCode === 200) {
-        console.log(body) // Print the json response
-        var parser = JSON.parse(body);
-        loadPoints(parser);
-
-    }
-
+$.getJSON(url, function(data) {
+    console.log(data)
 });
-
 
 
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
@@ -24,15 +12,6 @@ var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 		maxZoom: 18,
 		id: 'mapbox.streets'
 	}).addTo(mymap);
-
-	
-
-	L.circle([51.508, -0.11], 50, {
-		color: 'red',
-		fillColor: '#f03',
-		fillOpacity: 0.5
-	}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
-
 
 	var popup = L.popup();
 
