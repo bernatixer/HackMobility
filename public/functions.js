@@ -33,7 +33,6 @@ function loadPoints (json){
 	var	slots 	= json[i].slots
 	var	summ  	= parseInt(bikes) + parseInt(slots)
 	var	percent = (parseInt(bikes)/parseInt(summ))*100
-	console.log("id: " + i-1 + ", bikes: " + bikes + ", slots: " + slots + ", summ: " + summ + ", percent: " + percent);
 	
 	var color = '#ff0000'
 	if (percent != 0) 
@@ -43,7 +42,7 @@ function loadPoints (json){
 		color: color,
 		fillColor: color,
 		fillOpacity: 0.75
-		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" + "Bike Slots: " + json[i].slots);
+		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address);
 	}
 
 }
