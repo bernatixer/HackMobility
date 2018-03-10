@@ -1,0 +1,44 @@
+function onLocationFound(e) {
+    var radius = e.accuracy / 2;
+    var location = e.latlng
+    L.marker(location).addTo(map)
+    L.circle(location, radius).addTo(map);
+ }
+
+ function onLocationError(e) {
+    alert(e.message);
+ }
+
+ function getLocationLeaflet() {
+    map.on('locationfound', onLocationFound);
+    map.on('locationerror', onLocationError);
+
+    map.locate({setView: true, maxZoom: 16});
+ }
+
+
+ L.circle([41.391075, 2.180223], 50, {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
+
+L.circle([41.385331, 2.128737], 50, {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(mymap).bindPopup("I am a circle. <b>hoalsla</b>");
+
+L.Routing.control({
+waypoints: [
+    L.latLng(41.391075, 2.180223),
+    L.latLng(41.385331, 2.128737)
+],
+router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
+    urlParameters: {
+        vehicle: 'bike'
+    }
+})
+}).addTo(mymap);
+
+var popup = L.popup();
