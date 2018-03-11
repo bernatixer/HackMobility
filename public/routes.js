@@ -1,5 +1,6 @@
 var bikeData = [];
 var currLocation;
+var endLocation;
 var nowStation;
 var bikeSlot = "bikes";
 var route = L.Routing.control({
@@ -55,7 +56,7 @@ function onLocationFound(e) {
     if (circleGeo) mymap.removeLayer(circleGeo);
     var radius = e.accuracy / 2;
     currLocation = e.latlng
-    markerGeo = L.marker(currLocation).addTo(mymap)
+    makePath(endLocation.lat, endLocation.lng);
     circleGeo = L.circle(currLocation, radius).addTo(mymap);
  }
 
@@ -162,6 +163,7 @@ function nearestStation(lat, lng) {
 }
 
 function makePath(lat, lng) {
+    endLocation = {lat: lat, lng: lng};
     route.spliceWaypoints(0, 2);
     route.setWaypoints([
         currLocation,
