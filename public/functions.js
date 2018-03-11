@@ -1,10 +1,13 @@
 var url = "getJsonObject"
 
-setTimeout(function() {
+$.getJSON(url, function(data) {
+	loadPoints(data, bikeSlot == "bikes");
+});
+setInterval(function() {
 	$.getJSON(url, function(data) {
 		loadPoints(data, bikeSlot == "bikes");
 	});
-}, 60000);
+}, 5000);
 
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
@@ -14,7 +17,6 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 }).addTo(mymap);
 
 var popup = L.popup();
-
 function loadPoints (json, find) {
     markersLayer.clearLayers();
 	for (var i = 0; i < json.length; ++i) {
@@ -30,7 +32,7 @@ function loadPoints (json, find) {
 		var percent;
 		if (find) percent = (parseInt(bikes)/parseInt(summ))*100;
 		else percent = (parseInt(slots)/parseInt(summ))*100;
-
+		
 		bikeData[parseInt(id)] = {percent: percent, lat: lat, lng: lon, address: address, nearbyStations: json[i].nearbyStations};
 
 		if (percent != 0) {

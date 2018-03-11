@@ -125,8 +125,12 @@ function distance(lat, lng) {
 }
 
 function findBike() {
-    nearestStation(currLocation.lat, currLocation.lng);
-    $('#questionModal').modal('toggle');
+    $.getJSON(url, function(data) {
+        loadPoints(data, true);
+        bikeSlot = "bikes";
+        nearestStation(currLocation.lat, currLocation.lng);
+        $('#questionModal').modal('toggle');
+    });
 }
 
 function parkBike() {
