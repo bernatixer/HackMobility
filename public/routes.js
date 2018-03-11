@@ -55,8 +55,8 @@ function onLocationFound(e) {
     if (markerGeo) mymap.removeLayer(markerGeo);
     if (circleGeo) mymap.removeLayer(circleGeo);
     var radius = e.accuracy / 2;
-    currLocation = e.latlng
-    makePath(endLocation.lat, endLocation.lng);
+    currLocation = e.latlng;
+    if (endLocation) makePath(endLocation.lat, endLocation.lng);
     circleGeo = L.circle(currLocation, radius).addTo(mymap);
  }
 
@@ -130,6 +130,15 @@ function distance(lat, lng) {
 }
 
 function findBike() {
+    mymap.removeControl(route);
+    route = L.Routing.control({
+        waypoints: [],
+        router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
+            urlParameters: {
+                vehicle: 'foot'
+            }
+        })
+    }).addTo(mymap);
     $.getJSON(url, function(data) {
         loadPoints(data, true);
         bikeSlot = "bikes";
@@ -138,7 +147,28 @@ function findBike() {
     });
 }
 
+function findRoute() {
+    mymap.removeControl(route);
+    route = L.Routing.control({
+        waypoints: [],
+        router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
+            urlParameters: {
+                vehicle: 'bike'
+            }
+        })
+    }).addTo(mymap);
+}
+
 function parkBike() {
+    mymap.removeControl(route);
+    route = L.Routing.control({
+        waypoints: [],
+        router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
+            urlParameters: {
+                vehicle: 'bike'
+            }
+        })
+    }).addTo(mymap);
     $.getJSON(url, function(data) {
         loadPoints(data, false);
         bikeSlot = "slots";

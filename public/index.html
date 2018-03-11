@@ -73,7 +73,7 @@
 				<div class="modal-body">
 					<button type="button" class="btn btn-primary btn-lg btn-block" onclick="findBike();">I want to find a bike</button>
 					<button type="button" class="btn btn-secondary btn-lg btn-block" onclick="$('#questionModal').modal('toggle'); $('#parkBike').modal('toggle');">I want to park my bike</button>
-					<button type="button" class="btn btn-success btn-lg btn-block" onclick="$('#questionModal').modal('toggle'); $('#findRoute').modal('toggle');">I want to find a route</button>
+					<button type="button" class="btn btn-success btn-lg btn-block" onclick="findRoute(); $('#questionModal').modal('toggle'); $('#findRoute').modal('toggle');">I want to find a route</button>
 				</div>
 			</div>
 			</div>
@@ -110,17 +110,21 @@
 			</div>
 			</div>
 		</div>
-
+		<script src="/socket.io/socket.io.js"></script>
 		<script>
-			$('#questionModal').modal('toggle');
+		var socket = io.connect('http://localhost:3000');
+		socket.on('news', function (data) {
+			console.log(data);
+			socket.emit('my other event', { my: 'data' });
+		});
+		$('#questionModal').modal('toggle');
 
-			var mymap = L.map('mapid').setView([41.391075, 2.18022], 13);
+		var mymap = L.map('mapid').setView([41.391075, 2.18022], 13);
 
-			L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-				maxZoom: 18,
-				id: 'mapbox.streets'
-			}).addTo(mymap);
-
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+			maxZoom: 18,
+			id: 'mapbox.streets'
+		}).addTo(mymap);
 		</script>
 
 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
