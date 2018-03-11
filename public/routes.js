@@ -49,25 +49,28 @@ function findPercent(title) {
     return 100;
 }
 
+var markerGeo, circleGeo;
 function onLocationFound(e) {
+    if (markerGeo) mymap.removeLayer(markerGeo);
+    if (circleGeo) mymap.removeLayer(circleGeo);
     var radius = e.accuracy / 2;
     currLocation = e.latlng
-    L.marker(currLocation).addTo(mymap)
-    L.circle(currLocation, radius).addTo(mymap);
+    markerGeo = L.marker(currLocation).addTo(mymap)
+    circleGeo = L.circle(currLocation, radius).addTo(mymap);
  }
 
  function onLocationError(e) {
     alert(e.message);
  }
 
- function getLocationLeaflet() {
-    mymap.on('locationfound', onLocationFound);
-    mymap.on('locationerror', onLocationError);
+mymap.on('locationfound', onLocationFound);
+mymap.on('locationerror', onLocationError);
 
-    mymap.locate({setView: true, maxZoom: 16});
- }
+mymap.locate({setView: true, maxZoom: 16});
 
-getLocationLeaflet();
+setInterval(function() {
+    mymap.locate({setView: false});
+}, 5000);
 
 var popup = L.popup();
 
