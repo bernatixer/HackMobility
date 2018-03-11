@@ -105,7 +105,7 @@ mymap.addControl(new L.Control.Search({
     jsonpParam: 'json_callback',
     propertyName: 'display_name',
     propertyLoc: ['lat','lon'],
-    marker: L.circleMarker([0,0], {radius:30}),
+    marker: false,
     autoCollapse: true,
     collapsed: false,
     autoType: false,
