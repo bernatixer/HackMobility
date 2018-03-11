@@ -1,9 +1,12 @@
 var bikeData = [];
 var alarms = [];
+var alarmType = "";
+var alarmPlace = "";
+var alarmText = "";
+var alarmLocation;
 var currLocation;
 var endLocation;
 var nowStation;
-var alarmLocation;
 var bikeSlot = "bikes";
 var route = L.Routing.control({
     waypoints: [],
@@ -114,6 +117,8 @@ mymap.addControl(new L.Control.Search({
     marker: false,
     moveToLocation: function(latlng, title, map) {
         alarmLocation = latlng;
+        alarmPlace = title;
+        setAlarmType("");
         map.setView(latlng, 16);
     }
 }));
@@ -214,4 +219,19 @@ function makePath(lat, lng) {
         L.latLng(lat, lng)
     ]);
 
+}
+
+function setAlarmType(type) {
+    if (type) {
+        alarmType = type;
+        if (type == "full") alarmText = "a lot of bikes on ";
+        else if (type == "one") alarmText = "at least one bike on ";
+        else if (type == "empty") alarmText = "empty of bikes on ";
+    }
+    $('#alarmType').text(alarmText+alarmPlace);
+}
+
+function setAlarm() {
+    alarms.push({place: alarmPlace, loc: alarmLocation, type: alarmType});
+    console.log(alarmPlace + " - " + alarmType + " - " + alarmLocation);
 }

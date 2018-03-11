@@ -47,19 +47,33 @@
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
 						<button type="button" class="btn btn-success" onclick="$('#questionModal').modal('toggle');">I Changed my mind</button>
-					</li>
+					</li> 
 					<li class="nav-item">
-						<a class="nav-link" href="#"><span class="badge badge-warning">My alerts</span></a>
+						<button type="button" class="btn btn-warning" onclick="$('#questionAlarm').modal('toggle');">My alerts</button>
 					</li>
 				</ul>
-				<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-				</form>
 			</div>
 		</nav>
 
 		<div id="mapid" style="width: 100vw; height: 100vh;"></div>
+
+		<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">What do you want to do?</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+					<button type="button" class="btn btn-primary btn-lg btn-block" onclick="findBike();">I want to find a bike</button>
+					<button type="button" class="btn btn-secondary btn-lg btn-block" onclick="$('#questionModal').modal('toggle'); $('#parkBike').modal('toggle');">I want to park my bike</button>
+					<button type="button" class="btn btn-success btn-lg btn-block" onclick="findRoute(); $('#questionModal').modal('toggle'); $('#findRoute').modal('toggle');">I want to find a route</button>
+				</div>
+			</div>
+			</div>
+		</div>
 
 		<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
@@ -111,6 +125,37 @@
 			</div>
 		</div>
 		
+		<div class="modal fade" id="questionAlarm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">What do you want to do?</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+					<button type="button" class="btn btn-primary btn-lg btn-block" onclick="$('#questionAlarm').modal('toggle'); $('#editAlarms').modal('toggle');">Edit alarms</button>
+					<button type="button" class="btn btn-success btn-lg btn-block" onclick="$('#questionAlarm').modal('toggle'); $('#setAlarm').modal('toggle');">Set new alarm</button>
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="questionAlarm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Here are our alarms:</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body" id="editAlarms"></div>
+			</div>
+			</div>
+		</div>
+
 		<div class="modal fade" id="setAlarm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
@@ -121,10 +166,12 @@
 				</button>
 				</div>
 				<div class="modal-body">
-					<button type="button" class="btn btn-success btn-lg btn-block" onclick="$('#setAlarm').modal('toggle');">Full of bikes</button>
-					<button type="button" class="btn btn-warning btn-lg btn-block" onclick="$('#setAlarm').modal('toggle'); $('#parkBike').modal('toggle');">At least one bike</button>
-					<button type="button" class="btn btn-danger btn-lg btn-block" onclick="$('#setAlarm').modal('toggle'); $('#questionModal').modal('toggle'); $('#findRoute').modal('toggle');">No bikes</button>
+					<button type="button" class="btn btn-success btn-lg btn-block" onclick="setAlarmType('full');">A lot of bikes</button>
+					<button type="button" class="btn btn-warning btn-lg btn-block" onclick="setAlarmType('one');">At least one bike</button>
+					<button type="button" class="btn btn-danger btn-lg btn-block" onclick="setAlarmType('empty');">No bikes</button>
 					and where do you want to set it? <div id="alarmbox"></div>
+
+					<button type="button" class="btn btn-success btn-lg btn-block" onclick="$('#setAlarm').modal('toggle'); setAlarm();">Set alarm for <div id="alarmType"></div></button>					
 				</div>
 			</div>
 			</div>
