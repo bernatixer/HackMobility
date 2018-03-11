@@ -1,6 +1,7 @@
 var bikeData = [];
 var currLocation;
 var nowStation;
+var bikeSlot = "bikes";
 var route = L.Routing.control({
     waypoints: [],
     router: L.Routing.graphHopper("19bf5030-c60e-4f63-9af7-53778c745494" , {
@@ -29,8 +30,9 @@ function possiblePath(lat, lon, percent) {
 		  "hideEasing": "linear",
 		  "showMethod": "fadeIn",
 		  "hideMethod": "fadeOut"
-		}
-		toastr.warning("No bikes left in this station </br> <button class='btn btn-warning btn-sm' onclick='makePath("+lat+","+lon+");'>Go</button> <button class='btn btn-warning btn-sm'  onclick='nearestStation("+ lat + "," + lon + ")'>Redirect</button>", "Care!")
+        }
+
+		toastr.warning("No " + bikeSlot + " left in this station </br> <button class='btn btn-warning btn-sm' onclick='makePath("+lat+","+lon+");'>Go</button> <button class='btn btn-warning btn-sm'  onclick='nearestStation("+ lat + "," + lon + ")'>Redirect</button>", "Care!")
 
 	} else {
 		makePath(lat, lon);
@@ -72,20 +74,48 @@ var markersLayer = new L.LayerGroup();	//layer contain searched elements
 
 mymap.addLayer(markersLayer);
 
-var controlSearch = new L.Control.Search({
+mymap.addControl(new L.Control.Search({
     position:'topleft',
     layer: markersLayer,
     initial: false,
     zoom: 16,
     marker: false,
     moveToLocation: function(latlng, title, map) {
-        console.log(title);
         possiblePath(latlng.lat, latlng.lng, findPercent(title));
         map.setView(latlng, 16);
     }
-});
+}));
 
-mymap.addControl(controlSearch);
+mymap.addControl(new L.Control.Search({
+    container: 'parkbox',
+    layer: markersLayer,
+    initial: false,
+    zoom: 16,
+    marker: false,
+    moveToLocation: function(latlng, title, map) {
+        possiblePath(latlng.lat, latlng.lng, findPercent(title));
+        $('#parkBike').modal('toggle');
+        map.setView(latlng, 16);
+    }
+}));
+
+mymap.addControl(new L.Control.Search({
+    container: 'findbox',
+	url: 'http://nominatim.openstreetmap.org/search?format=json&q={s}',
+    jsonpParam: 'json_callback',
+    propertyName: 'display_name',
+    propertyLoc: ['lat','lon'],
+    marker: L.circleMarker([0,0], {radius:30}),
+    autoCollapse: true,
+    collapsed: false,
+    autoType: false,
+    minLength: 2,
+    moveToLocation: function(latlng, title, map) {
+        makePath(latlng.lat, latlng.lng);
+        $('#findRoute').modal('toggle');
+        map.setView(latlng, 16);
+    }
+}));
 
 function distance(lat, lng) {
     var a = lat-nowStation.lat;
@@ -94,19 +124,18 @@ function distance(lat, lng) {
     return Math.sqrt(c);
 }
 
-function findRoute() {
-    // TO-DO: POSAR UN SEARCH PER BUSCAR EL LLOC ON ANAR
-    $('#questionModal').modal('toggle');
-}
-
 function findBike() {
-    // TO-DO: MIRAR SI N'HI HA UN Q ESTA BUIT I PORTAR-LO AL QUE NO HO ESTA
+    nearestStation(currLocation.lat, currLocation.lng);
     $('#questionModal').modal('toggle');
 }
 
 function parkBike() {
-    // BUSCAR UN AMB SLOTS LLIURES I PORTARLO ALLA, PINTAR-HO TOT DIFERENT
-    $('#questionModal').modal('toggle');
+    $.getJSON(url, function(data) {
+        loadPoints(data, false);
+        bikeSlot = "slots";
+        nearestStation(currLocation.lat, currLocation.lng);
+        $('#parkBike').modal('toggle');
+    });
 }
 
 function nearestStation(lat, lng) {
