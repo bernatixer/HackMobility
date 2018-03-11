@@ -1,14 +1,10 @@
 var url = "getJsonObject"
 
-/*setTimeout(function() {
+setTimeout(function() {
 	$.getJSON(url, function(data) {
-		loadPoints(data);
-		console.log("Punts actualitzats");
+		loadPoints(data, bikeSlot == "bikes");
 	});
-}, 60000);*/
-$.getJSON(url, function(data) {
-	loadPoints(data, true);
-});
+}, 60000);
 
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 
@@ -47,9 +43,10 @@ function loadPoints (json, find) {
 			color: color,
 			fillColor: color,
 			fillOpacity: red
-		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address + " </br></br> <button class='btn btn-info btn-sm' id='"+i+"' onclick='possiblePath(" + lat + "," + lon + ", " + percent + ", " +  ");'>Go</button>");
+		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address + " </br> People coming: count </br> <button class='btn btn-info btn-sm' id='"+i+"' onclick='possiblePath(" + lat + "," + lon + ", " + percent + ", " +  ");'>Go</button>");
 		
 		markersLayer.addLayer(circle);
 	}
-
 }
+
+
