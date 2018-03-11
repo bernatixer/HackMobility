@@ -1,15 +1,11 @@
 const express = require('express')
 const app = express()
 const fs = require('fs')
-// const request = require('request')
+const execSync = require('child_process').execSync
 
-/*setTimeout(function() {
-    request('https://www.bicing.cat/availability_map/getJsonObject', function (error, response, body) {
-        fs.writeFile("public/getJsonObject", JSON.stringify(response), function (err) {
-            if (err) console.log(err);
-        });
-    });
-}, 60000);*/
+setInterval(function() {
+    execSync("wget https://www.bicing.cat/availability_map/getJsonObject -O public/getJsonObject", { encoding: 'utf8' });
+}, 5000);
 
 app.use(express.static('public'))
 
