@@ -37,11 +37,35 @@ function loadPoints (json, find) {
 		for (var j=0; j<alarms.length; ++j) {
 			if (alarms[j].place == address) {
 				if (alarms[j].type == "full" && (find && percent>70 || !find && percent<30)) {
-					console.log("HEY FULL");
+					Push.create("Full", {
+						body: address + " is full",
+						icon: "./imgs/icono.jpg",
+						timeout: 4000,
+						onClick: function() {
+							window.focus();
+							this.close();
+						}
+					});
 				} else if (alarms[j].type == "one" && bikes > 0) {
-					console.log("HEY ONE");
+					Push.create("Full", {
+						body: address + " has one left bike",
+						icon: "./imgs/icono.jpg",
+						timeout: 4000,
+						onClick: function() {
+							window.focus();
+							this.close();
+						}
+					});
 				} else if (alarms[j].type == "empty" && bikes == 0) {
-					console.log("HEY EMPTY");
+					Push.create("Full", {
+						body: address + " is empty",
+						icon: "./imgs/icono.jpg",
+						timeout: 4000,
+						onClick: function() {
+							window.focus();
+							this.close();
+						}
+					});
 				}
 			}
 		}
