@@ -38,7 +38,7 @@ function loadPoints (json, find) {
 			if (alarms[j].place == address) {
 				if (alarms[j].type == "full" && (find && percent>70 || !find && percent<30)) {
 					Push.create("Full", {
-						body: address + " is full",
+						body: address + " station is full",
 						icon: "./imgs/icono.jpg",
 						timeout: 4000,
 						onClick: function() {
@@ -47,8 +47,8 @@ function loadPoints (json, find) {
 						}
 					});
 				} else if (alarms[j].type == "one" && bikes > 0) {
-					Push.create("Full", {
-						body: address + " has one left bike",
+					Push.create("At least one left", {
+						body: address + " has at least one bike left",
 						icon: "./imgs/icono.jpg",
 						timeout: 4000,
 						onClick: function() {
@@ -57,8 +57,8 @@ function loadPoints (json, find) {
 						}
 					});
 				} else if (alarms[j].type == "empty" && bikes == 0) {
-					Push.create("Full", {
-						body: address + " is empty",
+					Push.create("Empty station", {
+						body: address + " station has no bikes left",
 						icon: "./imgs/icono.jpg",
 						timeout: 4000,
 						onClick: function() {
