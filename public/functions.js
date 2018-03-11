@@ -7,7 +7,7 @@ setInterval(function() {
 	$.getJSON(url, function(data) {
 		loadPoints(data, bikeSlot == "bikes");
 	});
-}, 5000);
+}, 60000);
 
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
 

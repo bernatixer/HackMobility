@@ -110,13 +110,29 @@
 			</div>
 			</div>
 		</div>
+		
+		<div class="modal fade" id="setAlarm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">What type of alarm do you want?</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				</div>
+				<div class="modal-body">
+					<button type="button" class="btn btn-success btn-lg btn-block" onclick="$('#setAlarm').modal('toggle');">Full of bikes</button>
+					<button type="button" class="btn btn-warning btn-lg btn-block" onclick="$('#setAlarm').modal('toggle'); $('#parkBike').modal('toggle');">At least one bike</button>
+					<button type="button" class="btn btn-danger btn-lg btn-block" onclick="$('#setAlarm').modal('toggle'); $('#questionModal').modal('toggle'); $('#findRoute').modal('toggle');">No bikes</button>
+					and where do you want to set it? <div id="alarmbox"></div>
+				</div>
+			</div>
+			</div>
+		</div>
+
 		<script src="/socket.io/socket.io.js"></script>
 		<script>
 		var socket = io.connect('http://localhost:3000');
-		socket.on('news', function (data) {
-			console.log(data);
-			socket.emit('my other event', { my: 'data' });
-		});
 		$('#questionModal').modal('toggle');
 
 		var mymap = L.map('mapid').setView([41.391075, 2.18022], 13);
@@ -128,6 +144,7 @@
 		</script>
 
 		 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		 <script src="notification.js"></script>
 		 <script src="routes.js"></script>
 		 <script src="functions.js"></script>
 	</body>

@@ -7,14 +7,14 @@ const execSync = require('child_process').execSync
 
 setInterval(function() {
     execSync("wget https://www.bicing.cat/availability_map/getJsonObject -O public/getJsonObject", { encoding: 'utf8' });
-}, 5000);
+}, 60000);
 
 app.use(express.static('public'))
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
 io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
+    // socket.emit('news', { hello: 'world' });
     socket.on('my other event', function (data) {
       console.log(data);
     });

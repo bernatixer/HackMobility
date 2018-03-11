@@ -1,7 +1,9 @@
 var bikeData = [];
+var alarms = [];
 var currLocation;
 var endLocation;
 var nowStation;
+var alarmLocation;
 var bikeSlot = "bikes";
 var route = L.Routing.control({
     waypoints: [],
@@ -36,8 +38,8 @@ function possiblePath(lat, lon, percent,id) {
 		toastr.warning("No " + bikeSlot + " left in this station </br> <button class='btn btn-warning btn-sm' onclick='makePath("+lat+","+lon+");'>Go</button> <button class='btn btn-warning btn-sm'  onclick='nearestStation("+ lat + "," + lon + ")'>Redirect</button>", "Care!")
 
 	} else {
-        socket.emit("reserves_envio", id);
 		makePath(lat, lon);
+        socket.emit("reserves_envio", id);
 	}
 }
 
@@ -71,7 +73,7 @@ mymap.locate({setView: true, maxZoom: 16});
 
 setInterval(function() {
     mymap.locate({setView: false});
-}, 5000);
+}, 10000);
 
 var popup = L.popup();
 
@@ -100,6 +102,18 @@ mymap.addControl(new L.Control.Search({
     moveToLocation: function(latlng, title, map) {
         possiblePath(latlng.lat, latlng.lng, findPercent(title));
         $('#parkBike').modal('toggle');
+        map.setView(latlng, 16);
+    }
+}));
+
+mymap.addControl(new L.Control.Search({
+    container: 'alarmbox',
+    layer: markersLayer,
+    initial: false,
+    zoom: 16,
+    marker: false,
+    moveToLocation: function(latlng, title, map) {
+        alarmLocation = latlng;
         map.setView(latlng, 16);
     }
 }));
