@@ -41,4 +41,5 @@ The map will show you all the stations of bicing with the actual ocupation showe
 
 # Deploy
 
+``` npm install ```
 ``` node server.js ```
