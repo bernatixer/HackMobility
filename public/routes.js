@@ -11,7 +11,7 @@ var route = L.Routing.control({
     })
 }).addTo(mymap);
 
-function possiblePath(lat, lon, percent) {
+function possiblePath(lat, lon, percent,id) {
 	if (percent === 0) {
 
 		toastr.options = {
@@ -36,6 +36,7 @@ function possiblePath(lat, lon, percent) {
 
 	} else {
 		makePath(lat, lon);
+        socket.emit("reserves_envio", id);
 	}
 }
 
