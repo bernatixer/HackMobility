@@ -36,8 +36,8 @@ function possiblePath(lat, lon, percent,id) {
 		toastr.warning("No " + bikeSlot + " left in this station </br> <button class='btn btn-warning btn-sm' onclick='makePath("+lat+","+lon+");'>Go</button> <button class='btn btn-warning btn-sm'  onclick='nearestStation("+ lat + "," + lon + ")'>Redirect</button>", "Care!")
 
 	} else {
-		makePath(lat, lon);
         socket.emit("reserves_envio", id);
+		makePath(lat, lon);
 	}
 }
 

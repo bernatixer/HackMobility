@@ -45,7 +45,7 @@ function loadPoints (json, find) {
 			color: color,
 			fillColor: color,
 			fillOpacity: red
-		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address + " </br> People coming: count </br> <button class='btn btn-info btn-sm' id='"+i+"' onclick='possiblePath(" + lat + "," + lon + ", " + percent + ", " +  ");'>Go</button>");
+		}).addTo(mymap).bindPopup("Bike number: " + json[i].bikes + "</br>" +  "Bike Slots: " + json[i].slots  + "</br>" + json[i].address + " </br> People coming: count </br> <button class='btn btn-info btn-sm' id='"+i+"' onclick='possiblePath(" + lat + "," + lon + ", " + percent + ", " +  id + ");'>Go</button>");
 		
 		markersLayer.addLayer(circle);
 	}
